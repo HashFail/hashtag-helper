@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="jquery-2.1.4.min.js"></script>
+		<script src="textarea-helper.js"></script>
+		<script src="hashtag-helper.js"></script>
+		<link rel="stylesheet" href="hashtag-helper.css" />
+	</head>
+	<body>
+		<div>Default behavior (matches hashtags that start with the phrase)</div>
+		<textarea id="default"></textarea>
+		<div>Example custom behavior (matches hashtags that contain with the phrase)</div>
+		<textarea id="custom"></textarea>
+		<script>
+			var suggestions = ["apple", "banana", "animal"];
+			$("#default").hashtagHelper(suggestions);
+			$("#custom").hashtagHelper(suggestions, function(hashtag, candidates){
+				var matches = [];
+				var regex = new RegExp(hashtag, "i");
+				for(var i = 0; i < candidates.length; i++){
+					if(regex.test(candidates[i])){
+						matches.push(candidates[i]);
+					}
+				}
+				return matches;
+			});
+		</script>
+	</body>
+</html>
